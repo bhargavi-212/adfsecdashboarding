@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "kapubhargavi2912-df"
+		},
+		"LS_AzureSqlDatabase_password": {
+			"value": ""
+		},
+		"LS_BlobStorage_connectionString": {
+			"value": ""
+		},
+		"LS_DataLakeStorage_accountKey": {
+			"value": ""
+		},
+		"LS_AzureSqlDatabase_properties_typeProperties_server": {
+			"value": "sqlseconddashboarding.database.windows.net"
+		},
+		"LS_AzureSqlDatabase_properties_typeProperties_database": {
+			"value": "sqldbseconddashboarding"
+		},
+		"LS_AzureSqlDatabase_properties_typeProperties_userName": {
+			"value": "cloud"
+		},
+		"LS_DataLakeStorage_properties_typeProperties_url": {
+			"value": "https://adlthirdaccdashboarding.dfs.core.windows.net/"
+		}
+	}
+}
