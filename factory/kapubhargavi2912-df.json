@@ -1,0 +1,9 @@
+{
+	"name": "kapubhargavi2912-df",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "5e6e4c91-5a1f-4ae3-a409-e50b2ac20b0e",
+		"tenantId": "425a65ec-92c7-48bc-b084-4725d2e4c353"
+	}
+}

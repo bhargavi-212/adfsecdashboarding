@@ -1,0 +1,75 @@
+{
+	"name": "AzureSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_AzureSqlDatabase",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"sqldatabase": {
+				"type": "string",
+				"defaultValue": "sqldbbonasidashboarding"
+			},
+			"sqltable": {
+				"type": "string",
+				"defaultValue": "sales"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "SalesId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "OrderId",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CustomerId",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CustomerName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ProductName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Quantity",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "UnitPrice",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 2
+			},
+			{
+				"name": "TotalAmount",
+				"type": "decimal",
+				"precision": 21,
+				"scale": 2
+			},
+			{
+				"name": "SalesDate",
+				"type": "date"
+			},
+			{
+				"name": "CreatedDate",
+				"type": "datetime2",
+				"scale": 7
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Sales"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

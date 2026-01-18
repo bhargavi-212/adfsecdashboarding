@@ -1,0 +1,102 @@
+{
+	"name": "para_datalaketosqlserver",
+	"properties": {
+		"activities": [
+			{
+				"name": "datalaketosqlserver",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_datalake1",
+						"type": "DatasetReference",
+						"parameters": {
+							"containername": {
+								"value": "@pipeline().parameters.sourcecontainer",
+								"type": "Expression"
+							},
+							"directryname": {
+								"value": "@pipeline().parameters.sourcedirectry",
+								"type": "Expression"
+							},
+							"filename": {
+								"value": "@pipeline().parameters.sourcefile",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"sqldatabase": "sqldbbonasidashboarding",
+							"sqltable": "sales"
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"sourcecontainer": {
+				"type": "string",
+				"defaultValue": "container1dl"
+			},
+			"sourcedirectry": {
+				"type": "string",
+				"defaultValue": "dir1dl"
+			},
+			"sourcefile": {
+				"type": "string",
+				"defaultValue": "products.csv"
+			},
+			"sqldatabase": {
+				"type": "string",
+				"defaultValue": "sqldbbonasidashboarding"
+			},
+			"sqltable": {
+				"type": "string",
+				"defaultValue": "sales"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-01-17T02:21:34Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
