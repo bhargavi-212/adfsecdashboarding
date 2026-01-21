@@ -105,8 +105,33 @@
 		],
 		"variables": {
 			"metadata": {
-				"type": "Boolean",
-				"defaultValue": "[{\"Inputfile\":\"circket1.csv\",\"Inputcontainer\":\"container1\",\"Inputdirectory\":\"direct1\",\"Outputfile\":\"circket1.csv\",\"Outputcontainer\":\"container2\",\"Outputdirectory\":\"direcr2\"},  {\"Inputfile\":\"Dept.csv\",\"Inputcontainer\":\"container1\",\"Inputdirectory\":\"direct1\",\"Outputfile\":\"Dept.csv\",\"Outputcontainer\":\"container2\",\"Outputdirectory\":\"direcr2\"},  {\"Inputfile\":\"emp table.csv\",\"Inputcontainer\":\"container1\",\"Inputdirectory\":\"direct1\",\"Outputfile\":\"emp table.csv\",\"Outputcontainer\":\"container2\",\"Outputdirectory\":\"direcr2\"}]"
+				"type": "Array",
+				"defaultValue": [
+					{
+						"Inputfile": "circket1.csv",
+						"Inputcontainer": "container1",
+						"Inputdirectory": "direct1",
+						"Outputfile": "circket1.csv",
+						"Outputcontainer": "container2",
+						"Outputdirectory": "direcr2"
+					},
+					{
+						"Inputfile": "Dept.csv",
+						"Inputcontainer": "container1",
+						"Inputdirectory": "direct1",
+						"Outputfile": "Dept.csv",
+						"Outputcontainer": "container2",
+						"Outputdirectory": "direcr2"
+					},
+					{
+						"Inputfile": "emp table.csv",
+						"Inputcontainer": "container1",
+						"Inputdirectory": "direct1",
+						"Outputfile": "emp table.csv",
+						"Outputcontainer": "container2",
+						"Outputdirectory": "direcr2"
+					}
+				]
 			}
 		},
 		"annotations": []
