@@ -116,10 +116,10 @@
 						"Outputdirectory": "direct2"
 					},
 					{
-						"Inputfile": "Dept.csv",
+						"Inputfile": "dept.csv",
 						"Inputcontainer": "container1",
 						"Inputdirectory": "direct1",
-						"Outputfile": "Dept.csv",
+						"Outputfile": "dept.csv",
 						"Outputcontainer": "container2",
 						"Outputdirectory": "direct2"
 					},
