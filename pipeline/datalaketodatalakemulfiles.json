@@ -8,6 +8,10 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@variables('metadata')",
+						"type": "Expression"
+					},
 					"activities": [
 						{
 							"name": "datalaketodatake",
@@ -56,14 +60,42 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "DS_datalake1",
-									"type": "DatasetReference"
+									"referenceName": "paradatalake_dataset",
+									"type": "DatasetReference",
+									"parameters": {
+										"containername": {
+											"value": "@item().inputcontainer",
+											"type": "Expression"
+										},
+										"directryname": {
+											"value": "@item().Inputdirectory",
+											"type": "Expression"
+										},
+										"filename": {
+											"value": "@item().Inputfile",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
 								{
-									"referenceName": "DS_datalake1",
-									"type": "DatasetReference"
+									"referenceName": "paradatalake_dataset",
+									"type": "DatasetReference",
+									"parameters": {
+										"containername": {
+											"value": "@item().Outputcontainer",
+											"type": "Expression"
+										},
+										"directryname": {
+											"value": "@item().Outputdirectory",
+											"type": "Expression"
+										},
+										"filename": {
+											"value": "@item().Outputfile",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
@@ -71,6 +103,12 @@
 				}
 			}
 		],
+		"variables": {
+			"metadata": {
+				"type": "Boolean",
+				"defaultValue": "[{\"Inputfile\":\"circket1.csv\",\"Inputcontainer\":\"container1\",\"Inputdirectory\":\"direct1\",\"Outputfile\":\"circket1.csv\",\"Outputcontainer\":\"container2\",\"Outputdirectory\":\"direcr2\"},  {\"Inputfile\":\"Dept.csv\",\"Inputcontainer\":\"container1\",\"Inputdirectory\":\"direct1\",\"Outputfile\":\"Dept.csv\",\"Outputcontainer\":\"container2\",\"Outputdirectory\":\"direcr2\"},  {\"Inputfile\":\"emp table.csv\",\"Inputcontainer\":\"container1\",\"Inputdirectory\":\"direct1\",\"Outputfile\":\"emp table.csv\",\"Outputcontainer\":\"container2\",\"Outputdirectory\":\"direcr2\"}]"
+			}
+		},
 		"annotations": []
 	}
 }
