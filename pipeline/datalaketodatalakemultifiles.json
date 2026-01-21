@@ -61,32 +61,6 @@
 				]
 			}
 		],
-		"parameters": {
-			"inputcontainername": {
-				"type": "string",
-				"defaultValue": "container1"
-			},
-			"inputdirectryname": {
-				"type": "string",
-				"defaultValue": "direct1"
-			},
-			"inputfilename": {
-				"type": "string",
-				"defaultValue": "cricket1.csv"
-			},
-			"outputcontainername": {
-				"type": "string",
-				"defaultValue": "container2"
-			},
-			"outputdirectryname": {
-				"type": "string",
-				"defaultValue": "direcr2"
-			},
-			"outputfilename": {
-				"type": "string",
-				"defaultValue": "cricket1.csv"
-			}
-		},
 		"annotations": []
 	}
 }
