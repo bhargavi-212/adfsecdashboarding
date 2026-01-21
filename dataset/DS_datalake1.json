@@ -5,20 +5,6 @@
 			"referenceName": "LS_DataLakeStorage",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"containername": {
-				"type": "string",
-				"defaultValue": "container1dl"
-			},
-			"directryname": {
-				"type": "string",
-				"defaultValue": "dir1dl"
-			},
-			"filename": {
-				"type": "string",
-				"defaultValue": "products.csv"
-			}
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
