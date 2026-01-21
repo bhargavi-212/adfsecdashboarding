@@ -180,18 +180,42 @@
 					"referenceName": "LS_DataLakeStorage",
 					"type": "LinkedServiceReference"
 				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "products.csv"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_DataLakeStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/paradatalake_dataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_DataLakeStorage",
+					"type": "LinkedServiceReference"
+				},
 				"parameters": {
 					"containername": {
-						"type": "string",
-						"defaultValue": "container1dl"
+						"type": "string"
 					},
 					"directryname": {
-						"type": "string",
-						"defaultValue": "dir1dl"
+						"type": "string"
 					},
 					"filename": {
-						"type": "string",
-						"defaultValue": "products.csv"
+						"type": "string"
 					}
 				},
 				"annotations": [],
@@ -199,7 +223,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "products.csv",
+						"fileName": {
+							"value": "@dataset().filename",
+							"type": "Expression"
+						},
 						"folderPath": {
 							"value": "@dataset().directryname",
 							"type": "Expression"
@@ -218,6 +245,153 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_DataLakeStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/datalaketodatalakemulfiles')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@variables('metadata')",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "datalaketodatake",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "DelimitedTextSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "DelimitedTextWriteSettings",
+												"quoteAllText": true,
+												"fileExtension": ".txt"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "paradatalake_dataset",
+											"type": "DatasetReference",
+											"parameters": {
+												"containername": {
+													"value": "@item().inputcontainer",
+													"type": "Expression"
+												},
+												"directryname": {
+													"value": "@item().Inputdirectory",
+													"type": "Expression"
+												},
+												"filename": {
+													"value": "@item().Inputfile",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "paradatalake_dataset",
+											"type": "DatasetReference",
+											"parameters": {
+												"containername": {
+													"value": "@item().Outputcontainer",
+													"type": "Expression"
+												},
+												"directryname": {
+													"value": "@item().Outputdirectory",
+													"type": "Expression"
+												},
+												"filename": {
+													"value": "@item().Outputfile",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"variables": {
+					"metadata": {
+						"type": "Array",
+						"defaultValue": [
+							{
+								"Inputfile": "cricket1.csv",
+								"Inputcontainer": "container1",
+								"Inputdirectory": "direct1",
+								"Outputfile": "cricket1.csv",
+								"Outputcontainer": "container2",
+								"Outputdirectory": "direct2"
+							},
+							{
+								"Inputfile": "dept.csv",
+								"Inputcontainer": "container1",
+								"Inputdirectory": "direct1",
+								"Outputfile": "dept.csv",
+								"Outputcontainer": "container2",
+								"Outputdirectory": "direct2"
+							},
+							{
+								"Inputfile": "emp table.csv",
+								"Inputcontainer": "container1",
+								"Inputdirectory": "direct1",
+								"Outputfile": "emp table.csv",
+								"Outputcontainer": "container2",
+								"Outputdirectory": "direct2"
+							}
+						]
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/paradatalake_dataset')]"
 			]
 		},
 		{
@@ -269,20 +443,7 @@
 							{
 								"referenceName": "DS_datalake1",
 								"type": "DatasetReference",
-								"parameters": {
-									"containername": {
-										"value": "@pipeline().parameters.sourcecontainer",
-										"type": "Expression"
-									},
-									"directryname": {
-										"value": "@pipeline().parameters.sourcedirectry",
-										"type": "Expression"
-									},
-									"filename": {
-										"value": "@pipeline().parameters.sourcefile",
-										"type": "Expression"
-									}
-								}
+								"parameters": {}
 							}
 						],
 						"outputs": [
