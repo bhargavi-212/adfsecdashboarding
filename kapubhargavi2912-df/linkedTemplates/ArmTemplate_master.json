@@ -7,10 +7,6 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "kapubhargavi2912-df"
 		},
-		"LS_AzureSqlDatabase_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'LS_AzureSqlDatabase'"
-		},
 		"LS_BlobStorage_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_BlobStorage'"
@@ -34,6 +30,10 @@
 		"LS_DataLakeStorage_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlthirdaccdashboarding.dfs.core.windows.net/"
+		},
+		"kvbavanasidashboarding_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kvbavanasidashboarding.vault.azure.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -62,14 +62,17 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"LS_AzureSqlDatabase_password": {
-						"value": "[parameters('LS_AzureSqlDatabase_password')]"
-					},
 					"LS_BlobStorage_connectionString": {
 						"value": "[parameters('LS_BlobStorage_connectionString')]"
 					},
 					"LS_DataLakeStorage_accountKey": {
 						"value": "[parameters('LS_DataLakeStorage_accountKey')]"
+					},
+					"LS_DataLakeStorage_properties_typeProperties_url": {
+						"value": "[parameters('LS_DataLakeStorage_properties_typeProperties_url')]"
+					},
+					"kvbavanasidashboarding_properties_typeProperties_baseUrl": {
+						"value": "[parameters('kvbavanasidashboarding_properties_typeProperties_baseUrl')]"
 					},
 					"LS_AzureSqlDatabase_properties_typeProperties_server": {
 						"value": "[parameters('LS_AzureSqlDatabase_properties_typeProperties_server')]"
@@ -79,9 +82,6 @@
 					},
 					"LS_AzureSqlDatabase_properties_typeProperties_userName": {
 						"value": "[parameters('LS_AzureSqlDatabase_properties_typeProperties_userName')]"
-					},
-					"LS_DataLakeStorage_properties_typeProperties_url": {
-						"value": "[parameters('LS_DataLakeStorage_properties_typeProperties_url')]"
 					}
 				}
 			},
